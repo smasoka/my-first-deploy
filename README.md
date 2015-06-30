@@ -10,5 +10,47 @@ This repository is to demonstrate, with high verbosity, how we expect new applic
 
 # How to use this repo
 
-Every jenkins job is connected to specific repo. Let's say you have a new application which you want to port - `myapp`. In order to get started, we expect you to fork this repo to your own github account (@user/myapp-deploy) and send us pull request to a repo in this organisation with your app name (@SouthAfricaDigitalScience/myapp-deploy). This will allow us to collaboratively provide suggestions to your new project. Do not edit this repo directly.
+Every jenkins job is connected to specific repo. Let's say you have a new application which you want to port - `myapp`. In order to get started, we expect you to 
+
+  1. become a member of this organisation on github.
+  1. fork this repo to your own github account (@user/myapp-deploy) and add the relevant files (see below)
+  2. for your own repo to this organisation with your app name (@SouthAfricaDigitalScience/myapp-deploy). This will allow us to collaboratively provide suggestions to your new project. Do not edit this repo directly.
+  3. We will create the job on jenkins and add the repo to it's configuraiton. When changes are pushed to any of the collaborators, the project will be built and tests run.
+
+# General principles
+
+  1. Try to use the definitive source for the application.
+  2. Separate build tests and functional tests
+  3. Try to implement as many functional tests as possible - you are building for more than one OS.
+  4. Check your dependencies and use the modules which the build system provides for you - do not unnecessarily build dependencies, rather request that the existing dependencies are built according to your satisfaction.
+
+# Contents of the repo
+
+Each deploy job should have at least two executable scripts :
+
+  1. `build.sh` 
+  2. `check-build.sh`
+
+These define basically two test phases, the **build** and **functional** test phases respectively.
+
+## Build Test Phase
+
+The build phase should do the following things
+
+  1. Set up the build environment variables
+  2. Check out the source code
+  3. Configure the build
+  4. Compile the source into an executable form.
+  5. Create a modulefile which loads the dependencies and sets the environment variables needed to execute the application.
+
+The build phase should pass iff the expected libraries and executable files are present. **It is your responsibility to define where these files are, on a case-by-case basis**.
+
+## Functional test phase
+
+Here you are expected to prove that the application actually executes a test payload. You should write a script called `check-buld.sh` which does the following things:
+
+  1. Load the modulefile created by `build.sh`
+  2. Execute the application with a predefined input or configuration - **it is your responsibility to provide this**. 
+  3. Check the validity of the output of the applicaiton - this may vary vastly between applications, but is likely to be something on `stdout` or the presence and content of a particular file.
+
 
