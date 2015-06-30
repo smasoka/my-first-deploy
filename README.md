@@ -1,5 +1,7 @@
 # Your first Jenkins job 
 
+> So you want to bring some applications to the gridcloud eh ... ? 
+
 This is a training and demonstration repo for writing -deploy jobs for our build and deploy system at http://ci.sagrid.ac.za:8080
 
 In general we want to make access to the SAGrid build system as open as possible, but manage the rights of anyone who wants to contribute. Since we want to automate as much as possible the delivery of new applications in this distributed environment, we need to have a stepping-stone project which can be personally managed by new users. This is the purpose of this repo. 
@@ -53,4 +55,10 @@ Here you are expected to prove that the application actually executes a test pay
   2. Execute the application with a predefined input or configuration - **it is your responsibility to provide this**. 
   3. Check the validity of the output of the applicaiton - this may vary vastly between applications, but is likely to be something on `stdout` or the presence and content of a particular file.
 
+# But, like, what about ...
 
+If you want to discuss this, or the whole system itself - either ask questions or make proposals for improvement, etc - please start a topic at the [discussion forum](http://discourse.sci-gaia.eu/).
+
+# When things go wrong
+
+If you have a legitimate error, or need support, please [open an issue](../../issues)
