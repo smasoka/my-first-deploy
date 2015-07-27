@@ -1,0 +1,29 @@
+---
+- vars:
+  name: gmp
+  version: 6.0.0a
+  soft_dir: "/opt/{{ name }}"
+  workspace: 
+  repo_dir:
+
+  tasks:
+  - name: run make check
+    command: "chdir={{ workspace }}/{{ name }}-{{ version }}" make check
+
+  - name: make build dir 
+    file: path={{ workspace }}/build state=directory
+
+  - name: run make unstall to DESTDIR
+    command: "chdir={{ workspace }}/{{ name }}-{{ version }}" make install DESTDIR="{{ workspace }}/build"
+
+  - name: run make install
+    command: "chdir={{ workspace }}/{{ name }}-{{ version }}" make install
+
+  - name: make repo dir
+    file: path={{ repo_dir }} state=directory
+
+  - name: create a tar
+    shell: tar -czf "{{ repo_dir }}/build.tar.gz" -C "{{ workspace }}/build apprepo
+
+  - name: create modulefile
+    template: src=modulefile.j2 dest=modules/{{ libraries_modules}}{{ name }}

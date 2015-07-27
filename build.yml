@@ -1,0 +1,22 @@
+---
+- vars:
+	name: gmp
+	version: 6.0.0a
+	soft_dir: /opt/{{ name }}
+  workspace: 
+
+  tasks:
+  - name: download {{ name }} package
+    get_url: url=https://gmplib.org/download/gmp/{{ name }}-{{ version}}.tar.bz2 dest={{ workspace }}/{{ name }}-{{ version }}.tar.bz2
+
+  - name: Create dir in tmp
+    file: path={{ name }}-{{ version }} state=directory
+
+  - name: Extract {{ name }} package
+    unarchive: src={{ workspace }}/{{ name }}-{{ version }}.tar.bz2 dest={{ workspace }}/{{ name }}-{{ version }}
+
+  - name: Run configure and make 
+    command: "chdir={{ workspace }}/{{ name }}-{{ version }} {{ item }}"
+    with_items:
+    	- ./configure --prefix={{ soft_dir }} --#where you handle dependencies
+    	- make

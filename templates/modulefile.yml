@@ -1,0 +1,14 @@
+#%Module1.0
+## {{ name }} modulefile
+##
+proc ModulesHelp { } {
+    puts stderr "       This module does nothing but alert the user"
+    puts stderr "       that the [module-info name] module is not available"
+}
+
+module-whatis   "$NAME $VERSION."
+setenv       GMP_VERSION       {{ version }}
+setenv       GMP_DIR           /apprepo/$::env(SITE)/$::env(OS)/$::env(ARCH)/{{ name }}/{{ version }}
+prepend-path LD_LIBRARY_PATH   $::env(GMP_DIR)/lib
+prepend-path GCC_INCLUDE_DIR   $::env(GMP_DIR)/include
+MODULE_FILE
