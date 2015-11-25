@@ -1,6 +1,6 @@
 #!/bin/bash -e
 # This is the demo version of a build script for the SAGrid Jenkins instance. Customise it for your needs
-
+. /etc/profile.d/modules.sh
 # If you are building from tarball, such as code obtained from sourceforge or github releases, you can use the 
 # NAME and VERSION variables defined in the Jenkins job to get the right package for you.
 # Be careful of capitalisation and semantic versioning differences
